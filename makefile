@@ -22,14 +22,14 @@ LD_FLAGS     = -Wl,--section-start=.text=$(BOOT_START_OFFSET)
 # Flash size and bootloader section sizes of the target, in KB. These must
 # match the target's total FLASH size and the bootloader size set in the
 # device's fuses.
-FLASH_SIZE_KB        := 128
-BOOT_SECTION_SIZE_KB := 8
+FLASH_SIZE_KB        := 16
+BOOT_SECTION_SIZE_KB := 2
 
 # Bootloader address calculation formulas
 # Do not modify these macros, but rather modify the dependent values above.
 CALC_ADDRESS_IN_HEX   = $(shell printf "0x%X" $$(( $(1) )) )
 BOOT_START_OFFSET     = $(call CALC_ADDRESS_IN_HEX, ($(FLASH_SIZE_KB) - $(BOOT_SECTION_SIZE_KB)) * 1024 )
-BOOT_SEC_OFFSET       = $(call CALC_ADDRESS_IN_HEX, ($(FLASH_SIZE_KB) * 1024) - ($(strip $(1))) )
+
 
 # Default target
 all: gcc lnk objcpy objdmp nm size
